@@ -42,3 +42,30 @@ link-for html page - https://1drv.ms/w/c/b35664573fa968ef/EVj-NU9ETENDvszV653kMG
 </body>
 </html>
 
+PHP PROG:-
+
+<?php
+$target_dir = "uploads/";
+$video_file = $target_dir . basename($_FILES["video"]["name"]);
+$image_file = $target_dir . basename($_FILES["image"]["name"]);
+
+// Check file size
+if ($_FILES["video"]["size"] > 1000000000 || $_FILES["image"]["size"] > 1000000000) { // 1 GB
+    echo "Sorry, your file is too large.";
+    exit();
+}
+
+// Upload video
+if (move_uploaded_file($_FILES["video"]["tmp_name"], $video_file)) {
+    echo "The video file ". htmlspecialchars(basename( $_FILES["video"]["name"])). " has been uploaded.";
+} else {
+    echo "Sorry, there was an error uploading your video file.";
+}
+
+// Upload image
+if (move_uploaded_file($_FILES["image"]["tmp_name"], $image_file)) {
+    echo "The image file ". htmlspecialchars(basename( $_FILES["image"]["name"])). " has been uploaded.";
+} else {
+    echo "Sorry, there was an error uploading your image file.";
+}
+?>
